@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+
+namespace TextAnalysis
+{
+	static class SentencesParserTask
+	{
+		public static readonly string[] StopWords = {"the", "and", "to", "a", "of", "in", "on", "at", "that", "as", "but", "with", "out", "for", "up", "one", "from", "into", ""};
+
+	    static  List<string> CleanFromStopWords(IEnumerable<string> word)
+	    {
+	        return word.Where(i => !StopWords.Contains(i)).ToList();
+	    }
+
+	    public static List<List<string>> ParseSentences(string text)
+		{
+		    var testArray = text.Split('.', '!', '?', ':', ';', '(', ')');
+		    return testArray.Select(i => CleanFromStopWords(i.Split('\n', ' ', ',', '\t').ToList())).ToList();
+		}
+	}
+}
